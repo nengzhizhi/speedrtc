@@ -1,0 +1,14 @@
+<script type="text/javascript" src="simplewebrtc.js"></script>
+<script type="text/javascript">
+	var webRTC = new SimpleWebRTC({
+		debug: true
+	});
+
+	webRTC.on('readyToCall', function(){
+		webRTC.joinRoom('some room');
+	})
+
+	webRTC.on('iceFailed', function (peer) {
+		console.log('local fail');
+	})
+</script>

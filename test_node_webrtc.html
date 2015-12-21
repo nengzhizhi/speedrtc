@@ -1,0 +1,57 @@
+<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+<script type="text/javascript">
+//var socket = io.connect('http://localhost');
+
+var config = {
+	iceServers: [
+		{
+			url: 'stun:stun.google.com:19302'
+		}
+	]
+}
+
+var peer = new window.webkitRTCPeerConnection(config);
+peer.onicecandidate = function(evt){
+	console.log('peer.onicecandidate!');
+}
+
+peer.onaddstream = function(evt){
+
+}
+
+peer.onnegotiationneeded = function() {
+	console.log('peer.onnegotiationneeded');
+}
+
+
+// socket.onmessage = function(event){
+// 	var msgObj = JSON.parser(event.data);
+
+// 	if (msgObj.event === '__ice_candidate') {
+// 		pc.addIceCandidate(new window.webkitRTCPeerConnection(msgObj.data.cadidate));
+
+// 		pc.setRemoteDescription();
+// 	}
+// }
+
+
+var sendOfferFunction = function(desc){
+	// peer.setLocalDescription(desc);
+	// socket.send(JSON.stringify({
+	// 	"event": "offer",
+	// 	"data": {
+	// 		"sdp": desc
+	// 	}
+	// }))
+	console.log(desc.sdp);
+	peer.addIceCandidate(new RTCIceCandidate(desc.sdp));
+
+}
+
+// var sendAnswerFunction = function(desc){
+// 	console.log(desc);
+// }
+
+// peer.createOffer(sendOfferFunction);
+
+</script>
